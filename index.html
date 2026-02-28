@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Motion Alarm Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <h1>IoT Alarm System</h1>
+            <p class="subtitle">Motion Detection Dashboard</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" required 
+                           placeholder="Enter username" autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required
+                           placeholder="Enter password">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p id="loginError" class="error-message"></p>
+            </form>
+            
+            <p class="hint">Default: admin / password123</p>
+        </div>
+    </div>
+    
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="page">
+        <header>
+            <h1>Security Dashboard</h1>
+            <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+        </header>
+        
+        <main>
+            <!-- Alarm Status Card -->
+            <div class="card">
+                <h2>Alarm Status</h2>
+                <div class="status-container">
+                    <div id="alarmStatus" class="status-badge inactive">
+                        INACTIVE
+                    </div>
+                    <p id="statusMessage" class="status-message">
+                        Alarm is currently turned off
+                    </p>
+                </div>
+                <div class="toggle-container">
+                    <label class="toggle">
+                        <input type="checkbox" id="alarmToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span id="toggleLabel">Turn Alarm ON</span>
+                </div>
+            </div>
+            
+            <!-- Motion Logs Card -->
+            <div class="card">
+                <h2>Motion Event Logs</h2>
+                <div class="logs-header">
+                    <span>Recent activity</span>
+                    <button id="refreshBtn" class="btn btn-small">Refresh</button>
+                </div>
+                <div id="motionLogs" class="logs-container">
+                    <!-- Logs will be populated here -->
+                    <p class="loading">Loading logs...</p>
+                </div>
+            </div>
+            
+            <!-- Statistics Card -->
+            <div class="card stats-card">
+                <h2>Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-value" id="totalMotion">0</span>
+                        <span class="stat-label">Total Events</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="callsMade">0</span>
+                        <span class="stat-label">Calls Made</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="lastEvent">Never</span>
+                        <span class="stat-label">Last Event</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>IoT Motion Detection Alarm System &copy; 2024</p>
+        </footer>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>

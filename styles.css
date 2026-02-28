@@ -1,0 +1,373 @@
+/* ==================== CSS Reset & Variables ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --success: #22c55e;
+    --danger: #ef4444;
+    --warning: #f59e0b;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-500: #6b7280;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --radius: 12px;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
+                 Oxygen, Ubuntu, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: var(--gray-900);
+}
+
+/* ==================== Page Layout ==================== */
+.page {
+    display: none;
+    min-height: 100vh;
+}
+
+.page.active {
+    display: block;
+}
+
+/* ==================== Login Page ==================== */
+#loginPage.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.login-container h1 {
+    font-size: 28px;
+    color: var(--gray-900);
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: var(--gray-500);
+    margin-bottom: 32px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--gray-700);
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--gray-200);
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.hint {
+    margin-top: 20px;
+    font-size: 14px;
+    color: var(--gray-500);
+}
+
+.error-message {
+    color: var(--danger);
+    font-size: 14px;
+    margin-top: 16px;
+}
+
+/* ==================== Dashboard ==================== */
+#dashboardPage {
+    background: var(--gray-100);
+}
+
+header {
+    background: white;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--shadow);
+}
+
+header h1 {
+    font-size: 24px;
+    color: var(--gray-900);
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: grid;
+    gap: 24px;
+}
+
+/* ==================== Cards ==================== */
+.card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: var(--shadow);
+}
+
+.card h2 {
+    font-size: 18px;
+    color: var(--gray-900);
+    margin-bottom: 20px;
+}
+
+/* ==================== Status Badge ==================== */
+.status-container {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.status-badge.active {
+    background: #dcfce7;
+    color: var(--success);
+    animation: pulse 2s infinite;
+}
+
+.status-badge.inactive {
+    background: #fee2e2;
+    color: var(--danger);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.status-message {
+    color: var(--gray-500);
+}
+
+/* ==================== Toggle Switch ==================== */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gray-300);
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background: var(--success);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* ==================== Motion Logs ==================== */
+.logs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    color: var(--gray-500);
+    font-size: 14px;
+}
+
+.logs-container {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.log-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.log-item:last-child {
+    border-bottom: none;
+}
+
+.log-time {
+    font-size: 14px;
+    color: var(--gray-500);
+}
+
+.log-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.log-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--warning);
+}
+
+.log-indicator.call {
+    background: var(--success);
+}
+
+/* ==================== Statistics ==================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    text-align: center;
+}
+
+.stat-item {
+    padding: 16px;
+    background: var(--gray-100);
+    border-radius: 8px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--gray-500);
+}
+
+/* ==================== Buttons ==================== */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn-secondary {
+    background: var(--gray-200);
+    color: var(--gray-700);
+}
+
+.btn-secondary:hover {
+    background: var(--gray-300);
+}
+
+.btn-small {
+    padding: 8px 16px;
+    font-size: 14px;
+    background: var(--gray-200);
+    color: var(--gray-700);
+}
+
+/* ==================== Footer ==================== */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--gray-500);
+    font-size: 14px;
+}
+
+/* ==================== Responsive ==================== */
+@media (max-width: 768px) {
+    header {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    main {
+        padding: 20px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
