@@ -228,10 +228,10 @@ def serve_static(path):
 
 # ==================== INITIALIZATION ====================
 
+# Initialize database (outside main block so it runs under Gunicorn)
+init_db(app)
+
 if __name__ == '__main__':
-    # Initialize database
-    init_db(app)
-    
     # Run development server
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
