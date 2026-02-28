@@ -162,7 +162,7 @@ def get_motion_logs():
     })
 
 
-@app.route('/api/motion/detect', methods=['POST'])
+@app.route('/api/motion/detect624frweufu', methods=['POST'])
 def motion_detected():
     """
     Endpoint for ESP32 to report motion detection.

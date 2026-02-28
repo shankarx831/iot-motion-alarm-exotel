@@ -18,9 +18,8 @@
 const char* WIFI_SSID = "YOUR_WIFI_SSID";          // Your WiFi name
 const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";  // Your WiFi password
 
-// Backend URL - Update after deploying to Heroku/Render
-// Example: "https://your-app-name.herokuapp.com/api/motion/detect"
-const char* BACKEND_URL = "https://your-backend-url/api/motion/detect";
+// Backend URL - Secret endpoint for security
+const char* BACKEND_URL = "https://iot-motion-alarm-exotel.onrender.com/api/motion/detect624frweufu";
   
 // PIR Sensor Pin Configuration
 const int PIR_PIN = 13;           // GPIO 13 (D13 on most boards)
