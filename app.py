@@ -32,6 +32,7 @@ EXOTEL_SUBDOMAIN = os.environ.get('EXOTEL_SUBDOMAIN', 'api.exotel.com')
 EXOTEL_VIRTUAL_NUMBER = os.environ.get('EXOTEL_VIRTUAL_NUMBER')  # Your Exophone
 EXOTEL_APP_ID = os.environ.get('EXOTEL_APP_ID') # ID of your Exotel Flow to play message
 OWNER_PHONE_NUMBER = os.environ.get('OWNER_PHONE_NUMBER')
+OWNER_PHONE_NUMBER_2 = os.environ.get('OWNER_PHONE_NUMBER_2')
 
 # Rate limiting: Track last call time
 last_call_time = None
@@ -47,9 +48,13 @@ def check_auth(username, password):
     return username == ADMIN_USERNAME and password == ADMIN_PASSWORD
 
 
-def make_phone_call():
+def make_phone_call(phone_number=None):
     """Make a phone call using Exotel with rate limiting"""
     global last_call_time
+    
+    # Use default owner number if none provided
+    if not phone_number:
+        phone_number = OWNER_PHONE_NUMBER
     
     # Rate limiting check
     if last_call_time:
@@ -61,15 +66,12 @@ def make_phone_call():
     
     try:
         # Exotel Connect Call API
-        # To call the owner and play an automated warning message using an Exotel App/Flow
         url = f"https://{EXOTEL_API_KEY}:{EXOTEL_API_TOKEN}@{EXOTEL_SUBDOMAIN}/v1/Accounts/{EXOTEL_ACCOUNT_SID}/Calls/connect.json"
         
-        # We dial the owner's number. When they pick up, they are connected to the Exotel App (Url)
-        # That Exotel App should be configured to play the warning message ("Motion detected...")
         exotel_app_url = f"http://my.exotel.com/{EXOTEL_ACCOUNT_SID}/exoml/start_voice/{EXOTEL_APP_ID}"
         
         payload = {
-            'From': OWNER_PHONE_NUMBER,
+            'From': phone_number,
             'CallerId': EXOTEL_VIRTUAL_NUMBER,
             'Url': exotel_app_url,
             'CallType': 'trans'
@@ -162,20 +164,31 @@ def get_motion_logs():
     })
 
 
-@app.route('/api/motion/detect624frweufu', methods=['POST'])
+@app.route('/api/motion/detect', methods=['POST'])
 def motion_detected():
     """
-    Endpoint for ESP32 to report motion detection.
-    This is the main endpoint that triggers the alarm.
-    No authentication required for ESP32.
+    Endpoint for ESP32 to report motion detection (Primary Number).
     """
+    return process_motion_detection(OWNER_PHONE_NUMBER, "Motion Detected")
+
+
+@app.route('/api/motion/detect2', methods=['POST'])
+def motion_detected_2():
+    """
+    Endpoint for ESP32 to report motion detection (Secondary Number).
+    """
+    return process_motion_detection(OWNER_PHONE_NUMBER_2, "Motion Detected (Secondary)")
+
+
+def process_motion_detection(phone_number, log_status):
+    """Genetic processor for motion detection"""
     # Get current alarm status
     alarm = AlarmStatus.query.first()
     
     # Check if alarm is active
     if not alarm or not alarm.is_active:
         # Log motion but don't trigger call
-        log = MotionLog(status='Motion Detected (Alarm OFF)')
+        log = MotionLog(status=f'{log_status} (Alarm OFF)')
         db.session.add(log)
         db.session.commit()
         return jsonify({
@@ -185,11 +198,11 @@ def motion_detected():
         })
     
     # Alarm is ON - make phone call
-    call_success, call_message = make_phone_call()
+    call_success, call_message = make_phone_call(phone_number)
     
     # Log the motion event
     log = MotionLog(
-        status='Motion Detected',
+        status=log_status,
         call_made=call_success
     )
     db.session.add(log)

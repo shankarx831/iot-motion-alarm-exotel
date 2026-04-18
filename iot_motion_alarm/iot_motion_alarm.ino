@@ -15,11 +15,11 @@
 // ==================== CONFIGURATION ====================
 // Update these values for your network and backend
 
-const char* WIFI_SSID = "YOUR_WIFI_SSID";          // Your WiFi name
-const char* WIFI_PASSWORD = "YOUR_WIFI_PASSWORD";  // Your WiFi password
+const char* WIFI_SSID = "Shankar";          // Your WiFi name
+const char* WIFI_PASSWORD = "shankar052";  // Your WiFi password
 
 // Backend URL - Secret endpoint for security
-const char* BACKEND_URL = "https://iot-motion-alarm-exotel.onrender.com/api/motion/detect624frweufu";
+const char* BACKEND_URL = "https://iot-motion-alarm-exotel.onrender.com/api/motion/detect";
   
 // PIR Sensor Pin Configuration
 const int PIR_PIN = 13;           // GPIO 13 (D13 on most boards)
